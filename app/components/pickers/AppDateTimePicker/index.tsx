@@ -2,19 +2,18 @@ import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native
 import React, { useState } from "react"
 import { AppDateTimePickerProps } from "./type"
 import { Calendar, LocaleConfig } from "react-native-calendars"
-import { AntDesign } from "@expo/vector-icons"
+import { AntDesign, Ionicons, MaterialCommunityIcons, Entypo } from "@expo/vector-icons"
 import { DateData, Direction } from "react-native-calendars/src/types"
-import { Ionicons } from "@expo/vector-icons"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
+
 import moment from "moment"
 import { appStyle } from "@app/theme/appStyle"
-import { Entypo } from "@expo/vector-icons"
+
 import DatePicker, { DatePickerProps } from "react-native-date-picker"
 import { Button } from "app/components/Button"
 import { colors } from "app/theme"
 import AppModal from "app/components/modals/AppModals"
 
-LocaleConfig.locales["vn"] = {
+LocaleConfig.locales.vn = {
   monthNames: [
     "Tháng 1",
     "Tháng 2",
@@ -170,12 +169,12 @@ const AppDateTimePicker = ({
         style={[
           styles.boxInput,
           {
-            width: width,
-            height: height,
+            width,
+            height,
             backgroundColor: disable ? "#F5F5F5" : backgroundColor,
-            borderRadius: borderRadius,
-            paddingVertical: paddingVertical,
-            paddingHorizontal: paddingHorizontal,
+            borderRadius,
+            paddingVertical,
+            paddingHorizontal,
           },
           containerStyle,
         ]}
@@ -300,8 +299,8 @@ export default AppDateTimePicker
 const styles = StyleSheet.create({
   boxInput: {
     alignItems: "center",
-    justifyContent: "space-between",
     flexDirection: "row",
+    justifyContent: "space-between",
   },
   title: {
     marginBottom: 4,

@@ -589,7 +589,7 @@ function FieldLabel(props: BaseToggleProps) {
     />
   )
 }
-
+// #region Styles
 const $inputWrapper: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",

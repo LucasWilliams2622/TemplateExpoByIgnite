@@ -146,9 +146,9 @@ const AppModal = ({
         style={[
           styles.container,
           {
-            width: width,
-            borderRadius: borderRadius,
-            backgroundColor: backgroundColor,
+            width,
+            borderRadius,
+            backgroundColor,
             height: "auto",
             alignItems: "center",
           },
@@ -232,14 +232,14 @@ const AppModal = ({
 export default AppModal
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    padding: 16,
-    alignSelf: "center",
-    height: "auto",
-  },
   boxButton: {
     marginTop: 24,
+  },
+  container: {
+    alignItems: "flex-start",
+    alignSelf: "center",
+    height: "auto",
+    justifyContent: "space-between",
+    padding: 16,
   },
 })

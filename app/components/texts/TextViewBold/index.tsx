@@ -44,7 +44,7 @@ const _TextViewBold: React.FC<Props> = ({
 
   return (
     <View style={StyleSheet.flatten([_styles.container, viewStyle])}>
-      <Text style={[appStyle.text14Medium, textStyle, { textAlign: textAlign }]}>
+      <Text style={[appStyle.text14Medium, textStyle, { textAlign }]}>
         {getTextWithBoldAndUpper(text, boldTexts)}
       </Text>
     </View>
@@ -53,8 +53,8 @@ const _TextViewBold: React.FC<Props> = ({
 
 const _styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
     alignItems: "center",
+    flexDirection: "column",
     justifyContent: "center",
   },
 })
