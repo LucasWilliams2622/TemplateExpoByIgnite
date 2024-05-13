@@ -44,6 +44,24 @@ export const colors = {
    * semantic names as much as possible.
    */
   palette,
+  primary: "#008505",
+  secondary: "#58A95B",
+  third: "#F1FFF2",
+  dangerColor: "#F0463B",
+  dangerColor2: "#FEDDDD",
+
+  warningColor: "#FDEC53",
+  warningColor2: "#FFFFCF",
+
+  successColor: "#52AF57",
+  successColor2: "#DEFFDF",
+
+  activeColor: "#3394EF",
+  activeColor2: "#DFFFFF",
+  disable: "#AEAEB2",
+  bgComponent: "#F8F8F8",
+  bgButton: "#008505",
+
   /**
    * A helper for making something see-thru.
    */
@@ -81,4 +99,39 @@ export const colors = {
    *
    */
   errorBackground: palette.angry100,
+  black: "#000000",
+  gray: "#808080",
+  gray3: "#AEAEB2",
+  white: "#FFFFFF",
+  aqua: "#00FFFF",
+  lightGray: "#FAFAFA",
+
+  greenLight: "#00FF00",
+  green: "#4CAF50",
+  lime: "#a4c403",
+  greenLeaves: "#60a916",
+  emerald: "#1d8a02",
+  teal: "#2daba8",
+  ligthGreen: "#E0FFF4",
+
+  cyan: "#30a1e1",
+  blue: "#3e65ff",
+  blue2: "#2550ef",
+  indigo: "#6a00ff",
+  violet: "#6a00ff",
+  pink: "#f472d0",
+
+  magenta: "#d82372",
+  crimson: "#a21a25",
+  red: "#F0463B",
+  red2: "#cc0000",
+  red3: "#e52a00",
+
+  orange: "#f86802",
+  lightOrange: "#E07900",
+  amber: "#f0a309",
+
+  yellow: "#e3c800",
+  brown: "#825a2b",
+  olive: "#6c8764",
 }

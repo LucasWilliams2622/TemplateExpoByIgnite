@@ -149,7 +149,7 @@ export function Button(props: ButtonProps) {
       {...rest}
       disabled={disabled}
     >
-      {(state) => (
+      {(state: PressableStateCallbackType) => (
         <>
           {!!LeftAccessory && (
             <LeftAccessory style={$leftAccessoryStyle} pressableState={state} disabled={disabled} />

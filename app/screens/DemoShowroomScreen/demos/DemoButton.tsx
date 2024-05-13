@@ -62,7 +62,7 @@ export const DemoButton: Demo = {
       <DemoDivider />
 
       <Button
-        preset="filled"
+        preset="reversed"
         RightAccessory={(props) => (
           <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
         )}
