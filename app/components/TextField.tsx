@@ -111,6 +111,8 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * and also check the strength of the password.
    */
   isPassword?: boolean
+
+  skipPasswordStrengthCheck?: boolean
 }
 
 /**
@@ -139,6 +141,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
     isPassword = false,
+    skipPasswordStrengthCheck = false,
     ...TextInputProps
   } = props
   const input = useRef<TextInput>(null)
@@ -189,13 +192,13 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   useImperativeHandle(ref, () => input.current as TextInput)
 
   useEffect(() => {
-    if (isPassword && TextInputProps.value) {
-      const strengthScore = checkPasswordStrength(TextInputProps.value)
-      console.log("🚀 ~ useEffect ~ strengthScore:", strengthScore)
+    if (isPassword && TextInputProps.value && !skipPasswordStrengthCheck) {
+      const strengthResult = checkPasswordStrength(TextInputProps.value)
+      setPasswordStrength(strengthResult.strength)
     } else {
       setPasswordStrength("")
     }
-  }, [TextInputProps.value])
+  }, [TextInputProps.value, isPassword, skipPasswordStrengthCheck])
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
     () =>
@@ -270,8 +273,19 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         )}
       </View>
       {!!passwordStrength && (
-        <Text text={`Password strength: ${passwordStrength}`} style={$passwordStrengthStyle} />
+        <Text
+          preset="formHelper"
+          text={`Password strength: ${passwordStrength}`}
+          style={[
+            $passwordStrengthStyle,
+            {
+              color:
+                passwordStrengthColors[passwordStrength as keyof typeof passwordStrengthColors],
+            },
+          ]}
+        />
       )}
+
       {!!(helper || helperTx) && (
         <Text
           preset="formHelper"
@@ -333,4 +347,10 @@ const $leftAccessoryStyle: ViewStyle = {
 const $passwordStrengthStyle: TextStyle = {
   color: colors.tint,
   marginTop: spacing.xs,
+}
+
+const passwordStrengthColors = {
+  strong: colors.green, // Green for strong
+  medium: colors.orange, // Orange for medium
+  weak: colors.red, // Red for weak
 }

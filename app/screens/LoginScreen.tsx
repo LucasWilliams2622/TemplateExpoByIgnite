@@ -105,6 +105,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         onSubmitEditing={login}
         // RightAccessory={PasswordRightAccessory}
         isPassword={true}
+        skipPasswordStrengthCheck={true}
       />
 
       <Button
