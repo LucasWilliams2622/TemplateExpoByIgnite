@@ -1,4 +1,13 @@
-import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import React, {
+  ComponentType,
+  forwardRef,
+  Ref,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import {
   StyleProp,
   TextInput,
@@ -11,6 +20,8 @@ import {
 import { isRTL, translate } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 import { Text, TextProps } from "./Text"
+import { checkPasswordStrength } from "app/utils"
+import { Icon } from "./Icon"
 
 export interface TextFieldAccessoryProps {
   style: StyleProp<any>
@@ -95,6 +106,11 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * Note: It is a good idea to memoize this.
    */
   LeftAccessory?: ComponentType<TextFieldAccessoryProps>
+  /**
+   * Whether to use the input as a password field with a toggle button to show/hide the password,
+   * and also check the strength of the password.
+   */
+  isPassword?: boolean
 }
 
 /**
@@ -122,6 +138,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     style: $inputStyleOverride,
     containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
+    isPassword = false,
     ...TextInputProps
   } = props
   const input = useRef<TextInput>(null)
@@ -167,8 +184,34 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
     input.current?.focus()
   }
-
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true)
+  const [passwordStrength, setPasswordStrength] = useState("")
   useImperativeHandle(ref, () => input.current as TextInput)
+
+  useEffect(() => {
+    if (isPassword && TextInputProps.value) {
+      const strengthScore = checkPasswordStrength(TextInputProps.value)
+      console.log("🚀 ~ useEffect ~ strengthScore:", strengthScore)
+    } else {
+      setPasswordStrength("")
+    }
+  }, [TextInputProps.value])
+
+  const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
+    () =>
+      function PasswordRightAccessory(props: TextFieldAccessoryProps) {
+        return (
+          <Icon
+            icon={isPasswordHidden ? "view" : "hidden"}
+            color={colors.palette.neutral800}
+            containerStyle={props.style}
+            size={20}
+            onPress={() => setIsPasswordHidden(!isPasswordHidden)}
+          />
+        )
+      },
+    [isPasswordHidden],
+  )
 
   return (
     <TouchableOpacity
@@ -207,8 +250,16 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           {...TextInputProps}
           editable={!disabled}
           style={$inputStyles}
+          secureTextEntry={isPassword && isPasswordHidden}
         />
-
+        {isPassword && (
+          <PasswordRightAccessory
+            style={$rightAccessoryStyle}
+            status={status}
+            editable={!disabled}
+            multiline={TextInputProps.multiline ?? false}
+          />
+        )}
         {!!RightAccessory && (
           <RightAccessory
             style={$rightAccessoryStyle}
@@ -218,7 +269,9 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           />
         )}
       </View>
-
+      {!!passwordStrength && (
+        <Text text={`Password strength: ${passwordStrength}`} style={$passwordStrengthStyle} />
+      )}
       {!!(helper || helperTx) && (
         <Text
           preset="formHelper"
@@ -276,4 +329,8 @@ const $leftAccessoryStyle: ViewStyle = {
   height: 40,
   justifyContent: "center",
   alignItems: "center",
+}
+const $passwordStrengthStyle: TextStyle = {
+  color: colors.tint,
+  marginTop: spacing.xs,
 }
