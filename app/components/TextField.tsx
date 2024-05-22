@@ -22,7 +22,7 @@ import { colors, spacing, typography } from "../theme"
 import { Text, TextProps } from "./Text"
 import { checkPasswordStrength } from "app/utils"
 import { Icon } from "./Icon"
-
+//#region Types
 export interface TextFieldAccessoryProps {
   style: StyleProp<any>
   status: TextFieldProps["status"]
@@ -144,6 +144,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     skipPasswordStrengthCheck = false,
     ...TextInputProps
   } = props
+  //#region Script & Variable
   const input = useRef<TextInput>(null)
 
   const disabled = TextInputProps.editable === false || status === "disabled"
@@ -215,7 +216,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       },
     [isPasswordHidden],
   )
-
+  //#region Render
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -299,7 +300,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     </TouchableOpacity>
   )
 })
-
+//#region Styles
 const $labelStyle: TextStyle = {
   marginBottom: spacing.xs,
 }
@@ -338,19 +339,21 @@ const $rightAccessoryStyle: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
 }
+
 const $leftAccessoryStyle: ViewStyle = {
   marginStart: spacing.xs,
   height: 40,
   justifyContent: "center",
   alignItems: "center",
 }
+
 const $passwordStrengthStyle: TextStyle = {
   color: colors.tint,
   marginTop: spacing.xs,
 }
 
 const passwordStrengthColors = {
-  strong: colors.green, // Green for strong
-  medium: colors.orange, // Orange for medium
-  weak: colors.red, // Red for weak
+  strong: colors.green,
+  medium: colors.orange,
+  weak: colors.red,
 }

@@ -5,6 +5,7 @@ import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "
 import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
+import axios from "axios"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
@@ -19,6 +20,19 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
     authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
   } = useStores()
 
+  // URL của API mà bạn muốn gọi
+  const apiUrl = 'https://jsonplaceholder.typicode.com/posts/1';
+  
+  // Gọi API bằng phương thức GET
+  axios.get(apiUrl)
+    .then(response => {
+      // Xử lý dữ liệu nhận được từ API
+      console.log('Data:', response.data);
+    })
+    .catch(error => {
+      // Xử lý lỗi nếu có
+      console.error('Error:', error);
+    });
   useEffect(() => {
     // Here is where you could fetch credentials from keychain or storage
     // and pre-fill the form fields.
